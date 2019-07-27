@@ -23,17 +23,19 @@ const columns = [
     },
 ];
 
-
 function Home() {
 
     const onRowClicked = () => {
-        console.log("this row clicked" , data)
+        console.log("this row clicked", data)
     }
+
     return (
-        <div style={styles} class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 align-self-center ">
+        <div className="container" style={{ height: '100vh', width: '100vh' }}>
+            <div className="row justify-content-center align-items-center" style={{ height: '100vh' }}>
+                <div className="col-8" >
+                    <span style={{ fontSize: '35px', fontFamily: 'bold' }}>Clientes</span>
                     <DataTable
+                        noHeader
                         style={dataTable}
                         columns={columns}
                         data={data}
@@ -43,11 +45,6 @@ function Home() {
             </div>
         </div>
     );
-}
-
-const styles = {
-    height: '100vh',
-    width: '100vh',
 }
 
 const dataTable = {
