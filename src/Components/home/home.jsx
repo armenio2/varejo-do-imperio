@@ -81,10 +81,10 @@ const columnsCart = [
     },
     {
         name: 'Preço Final',
-        selector: 'itemValue',
+        selector: 'itemValueToSell',
         right: true,
         sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.itemValue) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
+        cell: data => currencyFormatter.format(parseInt(data.itemValueToSell) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
         name: 'Quantidade',
@@ -98,13 +98,18 @@ const columnsCart = [
         //selector: 'itemAmount',
         right: true,
         sortable: true,
-        cell: data => calculateRetability(data),
+        cell: data => <div style={{ fontWeight: 'bold' }}>{calculateRetability(data)}</div>,
     },
 
 ];
 
 const calculateRetability = (data) => {
-    return (<div style={{ fontWeight: 'bold' }}>Hakuna Matata</div>)
+    if (parseInt(data.itemValueToSell) > parseInt(data.price)) {
+        return 'Otima';
+    } else if (parseInt(data.itemValueToSell) >= (parseInt(data.price) * 0.9)) {
+        return 'Boa';
+    }
+    return 'Ruim';
 }
 
 const Home = () => {
@@ -118,21 +123,15 @@ const Home = () => {
     const onRowClickedClient = (props) => {
         client(props.name)
         step(1)
-        console.log("this row clicked", props)
     }
 
     const onRowClickedProduct = (props) => {
-        console.log("cartItem ", cartItem)
         step(2)
         nextItem(props)
-        //tellmePrice()
-        console.log("this row clicked", props)
     }
 
     const onModalClose = (props) => {
         step(1)
-        //nextItem('')
-        console.log("this row clicked", props)
     }
 
     const onModalSubmit = () => {
@@ -142,7 +141,7 @@ const Home = () => {
                 ...cartItem,
                 {
                     ...item,
-                    'itemValue': value,
+                    'itemValueToSell': value,
                     'itemAmount': amount,
                 },
             ]
@@ -151,7 +150,7 @@ const Home = () => {
             let cart = [
                 {
                     ...item,
-                    'itemValue': value,
+                    'itemValueToSell': value,
                     'itemAmount': amount,
                 },
             ]
