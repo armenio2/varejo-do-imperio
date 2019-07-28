@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
+import NumberFormat from 'react-number-format';
 
 var currencyFormatter = require('currency-formatter');
 
@@ -135,6 +136,8 @@ const Home = () => {
     }
 
     const onModalSubmit = () => {
+        //validar o multiplicador
+
         step(1)
         if (cartItem) {
             let cart = [
@@ -194,19 +197,19 @@ const Home = () => {
                                 </div>
                                 <div className="modal-body">
                                     <div className="row justify-content-between align-items-center">
-                                        <div className="col-8" >
+                                        <div className="col-xl-6 col-md-12" >
                                             <p>Qual o valor de compra do item?</p>
                                         </div>
-                                        <div className="col-4" >
-                                            <input value={value} onChange={e => nextValue(e.target.value)} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" ></input>
+                                        <div className="col-xl-6 col-md-12" >
+                                            <NumberFormat value={value} onChange={e => nextValue(e.target.value)} thousandSeparator={true} prefix={'R$: '} />
                                         </div>
                                     </div>
                                     <div className="row justify-content-between align-items-center">
-                                        <div className="col-8" >
+                                        <div className="col-xl-6 col-md-12" >
                                             <p>Quantos itens?</p>
                                         </div>
-                                        <div className="col-4" >
-                                            <input value={amount} onChange={e => nextAmount(e.target.value)} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                        <div className="col-xl-6 col-md-12" >
+                                            <NumberFormat value={amount} onChange={e => nextAmount(e.target.value)} thousandSeparator={true} />
                                         </div>
                                     </div>
                                 </div>
