@@ -57,6 +57,46 @@ const columnsProduct = [
     },
 ];
 
+const columnsCart = [
+    /* {
+         name: 'Id',
+         selector: 'id',
+         sortable: true,
+     },*/
+    {
+        name: 'Nome',
+        selector: 'name',
+        sortable: true,
+        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+    },
+    {
+        name: 'Preço Unitário (R$)',
+        selector: 'price',
+        right: true,
+        sortable: true,
+    },
+    {
+        name: 'Preço Final',
+        selector: 'itemValue',
+        right: true,
+        sortable: true,
+    },
+    {
+        name: 'Quantidade',
+        selector: 'itemAmount',
+        right: true,
+        sortable: true,
+    },
+    {
+        name: 'Rentabilidade',
+        //selector: 'itemAmount',
+        right: true,
+        sortable: true,
+        cell: data => <div style={{ fontWeight: 'bold' }}>Hakuna Matata</div>,
+    },
+
+];
+
 const Home = () => {
     const [clientName, client] = useState('Clientes');
     const [stage, step] = useState(0);
@@ -107,16 +147,13 @@ const Home = () => {
             ]
             addCartItem(cart)
         }
-        //addCartItem(cart)
-        //nextItem(props)
-
     }
 
     return (
         <div className="container" style={{ height: '100vh', width: '100vh' }}>
             <div className="row justify-content-center align-items-center" style={{ height: '100vh' }}>
                 <div className="col-8" >
-                    <span style={{ fontSize: '35px', fontFamily: 'bold' }}>{clientName}</span>
+                    <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{clientName}</span>
                     <div style={stage === 0 ? styleShow : styleHide}>
                         <DataTable
                             noHeader
@@ -169,6 +206,26 @@ const Home = () => {
                                     <button onClick={onModalSubmit} type="button" className="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div style={cartItem ? styleShow : styleHide}>
+                    <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
+                        <div className="col-12" >
+                            <p style={{ fontSize: 25, fontFamily: 'bold' }}>Carrinho de Compras</p>
+                            <DataTable
+                                noHeader
+                                style={dataTable}
+                                columns={columnsCart}
+                                data={cartItem ? cartItem : ''}
+                                onRowClicked={onRowClickedProduct}
+                                highlightOnHover={true}
+                            />
+                        </div>
+                    </div>
+                    <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
+                        <div className="col-12" >
+                            <button type="button" className="btn btn-primary">Finalizar Compra</button>
                         </div>
                     </div>
                 </div>
