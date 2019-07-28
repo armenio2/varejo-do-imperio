@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 
+var currencyFormatter = require('currency-formatter');
+
 const dataClient = [
     { id: 1, name: 'Darth Vader' },
     { id: 2, name: 'Obi-Wan Kenobi' },
@@ -48,6 +50,7 @@ const columnsProduct = [
         selector: 'price',
         right: true,
         sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
         name: 'Múltiplo',
@@ -74,28 +77,35 @@ const columnsCart = [
         selector: 'price',
         right: true,
         sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
         name: 'Preço Final',
         selector: 'itemValue',
         right: true,
         sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.itemValue) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
         name: 'Quantidade',
         selector: 'itemAmount',
         right: true,
         sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.itemAmount), { thousand: '.', decimal: ',' })
     },
     {
         name: 'Rentabilidade',
         //selector: 'itemAmount',
         right: true,
         sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>Hakuna Matata</div>,
+        cell: data => calculateRetability(data),
     },
 
 ];
+
+const calculateRetability = (data) => {
+    return (<div style={{ fontWeight: 'bold' }}>Hakuna Matata</div>)
+}
 
 const Home = () => {
     const [clientName, client] = useState('Clientes');
