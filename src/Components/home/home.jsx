@@ -57,9 +57,13 @@ const columnsProduct = [
     },
 ];
 
-function Home() {
+const Home = () => {
     const [clientName, client] = useState('Clientes');
     const [stage, step] = useState(0);
+    const [item, nextItem] = useState(0);
+    const [value, nextValue] = useState();
+    const [amount, nextAmount] = useState();
+    const [cartItem, addCartItem] = useState();
 
     const onRowClickedClient = (props) => {
         client(props.name)
@@ -68,7 +72,44 @@ function Home() {
     }
 
     const onRowClickedProduct = (props) => {
+        console.log("cartItem ", cartItem)
+        step(2)
+        nextItem(props)
+        //tellmePrice()
         console.log("this row clicked", props)
+    }
+
+    const onModalClose = (props) => {
+        step(1)
+        //nextItem('')
+        console.log("this row clicked", props)
+    }
+
+    const onModalSubmit = () => {
+        step(1)
+        if (cartItem) {
+            let cart = [
+                ...cartItem,
+                {
+                    ...item,
+                    'itemValue': value,
+                    'itemAmount': amount,
+                },
+            ]
+            addCartItem(cart)
+        } else {
+            let cart = [
+                {
+                    ...item,
+                    'itemValue': value,
+                    'itemAmount': amount,
+                },
+            ]
+            addCartItem(cart)
+        }
+        //addCartItem(cart)
+        //nextItem(props)
+
     }
 
     return (
@@ -77,9 +118,7 @@ function Home() {
                 <div className="col-8" >
                     <span style={{ fontSize: '35px', fontFamily: 'bold' }}>{clientName}</span>
                     <div style={stage === 0 ? styleShow : styleHide}>
-
                         <DataTable
-                            style={styleShow}
                             noHeader
                             style={dataTable}
                             columns={columnsClient}
@@ -98,9 +137,43 @@ function Home() {
                             highlightOnHover={true}
                         />
                     </div>
+                    <div style={stage === 2 ? styleShow : styleHide} className="modal" tabIndex="-1" role="dialog">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{item.name}</h5>
+                                    <button onClick={onModalClose} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="row justify-content-between align-items-center">
+                                        <div className="col-8" >
+                                            <p>Qual o valor de compra do item?</p>
+                                        </div>
+                                        <div className="col-4" >
+                                            <input value={value} onChange={e => nextValue(e.target.value)} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" ></input>
+                                        </div>
+                                    </div>
+                                    <div className="row justify-content-between align-items-center">
+                                        <div className="col-8" >
+                                            <p>Quantos itens?</p>
+                                        </div>
+                                        <div className="col-4" >
+                                            <input value={amount} onChange={e => nextAmount(e.target.value)} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button onClick={onModalClose} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button onClick={onModalSubmit} type="button" className="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
