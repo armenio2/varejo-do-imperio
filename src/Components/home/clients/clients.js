@@ -3,6 +3,20 @@ import DataTable from 'react-data-table-component';
 
 import dataMock from '../../../mock/dataMock';
 
+const columnsClient = [
+    {
+        name: 'Id',
+        selector: 'id',
+        sortable: true,
+    },
+    {
+        name: 'Nome',
+        selector: 'name',
+        sortable: true,
+        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+    },
+];
+
 function clients(props) {
     return (
         <section>
@@ -11,7 +25,7 @@ function clients(props) {
                 <DataTable
                     noHeader
                     style={props.dataTable}
-                    columns={props.columnsClient}
+                    columns={columnsClient}
                     data={dataMock.dataClient}
                     onRowClicked={props.onRowClickedClient}
                     highlightOnHover={true}

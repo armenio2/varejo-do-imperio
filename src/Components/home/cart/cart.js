@@ -1,6 +1,53 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 
+var currencyFormatter = require('currency-formatter');
+
+const columnsCart = [
+    {
+        name: 'Nome',
+        selector: 'name',
+        sortable: true,
+        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+    },
+    {
+        name: 'Preço Unitário (R$)',
+        selector: 'price',
+        right: true,
+        sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
+    },
+    {
+        name: 'Valor de venda',
+        selector: 'itemValueToSell',
+        right: true,
+        sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.itemValueToSell), { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
+    },
+    {
+        name: 'Quantidade',
+        selector: 'itemAmount',
+        right: true,
+        sortable: true,
+        cell: data => currencyFormatter.format(parseInt(data.itemAmount), { thousand: '.', decimal: ',' })
+    },
+    {
+        name: 'Rentabilidade',
+        right: true,
+        sortable: true,
+        cell: data => <div style={{ fontWeight: 'bold' }}>{calculateRetability(data)}</div>,
+    },
+];
+
+const calculateRetability = (data) => {
+    if (parseInt(data.itemValueToSell) > parseInt(data.price)) {
+        return 'Otima';
+    } else if (parseInt(data.itemValueToSell) >= (parseInt(data.price) * 0.9)) {
+        return 'Boa';
+    }
+    return 'Ruim';
+}
+
 function cart(props) {
     return (
         <div style={props.cartItem ? props.styleShow : props.styleHide}>
@@ -10,7 +57,7 @@ function cart(props) {
                     <DataTable
                         noHeader
                         style={props.dataTable}
-                        columns={props.columnsCart}
+                        columns={columnsCart}
                         data={props.cartItem ? props.cartItem : ''}
                         highlightOnHover={true}
                     />

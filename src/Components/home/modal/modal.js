@@ -18,7 +18,7 @@ function modal(props) {
                                 <p>Qual o valor de compra do item?</p>
                             </div>
                             <div className="col-xl-6 col-md-12" >
-                                <NumberFormat value={props.value} onChange={e => props.nextValue(e.target.value)} thousandSeparator={true} />
+                                <NumberFormat value={props.value} onChange={e => props.nextValue(e.target.value)} />
                             </div>
                         </div>
                         <div className="row justify-content-between align-items-center">

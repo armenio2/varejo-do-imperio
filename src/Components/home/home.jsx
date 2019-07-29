@@ -4,95 +4,6 @@ import Products from './products/products';
 import Modal from './modal/modal';
 import Cart from './cart/cart';
 
-var currencyFormatter = require('currency-formatter');
-
-const columnsClient = [
-    {
-        name: 'Id',
-        selector: 'id',
-        sortable: true,
-    },
-    {
-        name: 'Nome',
-        selector: 'name',
-        sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
-    },
-];
-
-const columnsProduct = [
-    {
-        name: 'Id',
-        selector: 'id',
-        sortable: true,
-    },
-    {
-        name: 'Nome',
-        selector: 'name',
-        sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
-    },
-    {
-        name: 'Preço Unitário (R$)',
-        selector: 'price',
-        right: true,
-        sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
-    },
-    {
-        name: 'Múltiplo',
-        selector: 'minToSell',
-        right: true,
-        sortable: true,
-    },
-];
-
-const columnsCart = [
-    {
-        name: 'Nome',
-        selector: 'name',
-        sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
-    },
-    {
-        name: 'Preço Unitário (R$)',
-        selector: 'price',
-        right: true,
-        sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
-    },
-    {
-        name: 'Valor de venda',
-        selector: 'itemValueToSell',
-        right: true,
-        sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.itemValueToSell), { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
-    },
-    {
-        name: 'Quantidade',
-        selector: 'itemAmount',
-        right: true,
-        sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.itemAmount), { thousand: '.', decimal: ',' })
-    },
-    {
-        name: 'Rentabilidade',
-        right: true,
-        sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{calculateRetability(data)}</div>,
-    },
-
-];
-
-const calculateRetability = (data) => {
-    if (parseInt(data.itemValueToSell) > parseInt(data.price)) {
-        return 'Otima';
-    } else if (parseInt(data.itemValueToSell) >= (parseInt(data.price) * 0.9)) {
-        return 'Boa';
-    }
-    return 'Ruim';
-}
-
 const Home = () => {
     const [clientName, client] = useState('Clientes');
     const [stage, step] = useState(0);
@@ -174,7 +85,6 @@ const Home = () => {
                         styleShow={styleShow}
                         styleHide={styleHide}
                         dataTable={dataTable}
-                        columnsClient={columnsClient}
                         onRowClickedClient={onRowClickedClient}
                     />
                     <Products
@@ -182,7 +92,6 @@ const Home = () => {
                         styleShow={styleShow}
                         styleHide={styleHide}
                         dataTable={dataTable}
-                        columnsProduct={columnsProduct}
                         onRowClickedProduct={onRowClickedProduct}
                     />
                     <Modal
@@ -204,7 +113,6 @@ const Home = () => {
                     styleShow={styleShow}
                     styleHide={styleHide}
                     dataTable={dataTable}
-                    columnsCart={columnsCart}
                     cartItem={cartItem}
                 />
             </div>
