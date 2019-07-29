@@ -8,7 +8,7 @@ const columnsCart = [
         name: 'Nome',
         selector: 'name',
         sortable: true,
-        cell: data => <div style={titleFont}>{data.name}</div>,
+        cell: data => <div style={titleCartFont}>{data.name}</div>,
     },
     {
         name: 'Preço Unitário (R$)',
@@ -35,17 +35,17 @@ const columnsCart = [
         name: 'Rentabilidade',
         right: true,
         sortable: true,
-        cell: data => <div style={titleFont}>{calculateRetability(data)}</div>,
+        cell: data => calculateRetability(data),
     },
 ];
 
 const calculateRetability = (data) => {
     if (parseInt(data.itemValueToSell) > parseInt(data.price)) {
-        return 'Otima';
-    } else if (parseInt(data.itemValueToSell) >= (parseInt(data.price) * 0.9)) {
-        return 'Boa';
+        return <div style={titleGreat}>Otima</div>;
+    } else if ((parseInt(data.itemValueToSell) * 100) >= (parseInt(data.price) * 0.9)) {
+        return <div style={titleGood}>Boa</div>;
     }
-    return 'Ruim';
+    return <div style={titleBad}>Ruim</div>;
 }
 
 function cart(props) {
@@ -53,7 +53,7 @@ function cart(props) {
         <div style={props.cartItem ? props.styleShow : props.styleHide}>
             <div style={marginTop} className="row justify-content-center align-items-end">
                 <div className="col-12" >
-                    <p style={titleCartFont}>Carrinho de Compras</p>
+                    <p style={titleFont}>Carrinho de Compras</p>
                     <DataTable
                         noHeader
                         style={props.dataTable}
@@ -73,16 +73,31 @@ function cart(props) {
 }
 
 const titleFont = {
+    fontSize: 25,
     fontWeight: 'bold'
 }
 
 const titleCartFont = {
-    fontSize: 25,
-    fontFamily: 'bold'
+    fontWeight: 'bold'
 }
 
 const marginTop = {
     marginTop: 35
+}
+
+const titleGreat = {
+    fontWeight: 'bold',
+    color: '#74FF16'
+}
+
+const titleGood = {
+    fontWeight: 'bold',
+    color: '#FFF962',
+}
+
+const titleBad = {
+    fontWeight: 'bold',
+    color: '#FF4136'
 }
 
 export default cart;
