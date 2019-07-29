@@ -40,7 +40,7 @@ const columnsCart = [
 ];
 
 const calculateRetability = (data) => {
-    if (parseInt(data.itemValueToSell) > parseInt(data.price)) {
+    if ((parseInt(data.itemValueToSell) * 100) > parseInt(data.price)) {
         return <div style={titleGreat}>Otima</div>;
     } else if ((parseInt(data.itemValueToSell) * 100) >= (parseInt(data.price) * 0.9)) {
         return <div style={titleGood}>Boa</div>;
@@ -87,12 +87,12 @@ const marginTop = {
 
 const titleGreat = {
     fontWeight: 'bold',
-    color: '#74FF16'
+    color: '#00732E'
 }
 
 const titleGood = {
     fontWeight: 'bold',
-    color: '#FFF962',
+    color: '#74FF16',
 }
 
 const titleBad = {
