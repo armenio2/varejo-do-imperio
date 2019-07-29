@@ -76,7 +76,7 @@ const ScreenView = () => {
     }
 
     return (
-        <div className="container fullSize">
+        <div className="container fullSize" style={containerScreenView}>
             <div className="row justify-content-center align-items-center" style={fullHeight}>
                 <div className="col-lg-8 col-md-12" >
                     <Clients
@@ -118,6 +118,10 @@ const ScreenView = () => {
             </div>
         </div >
     );
+}
+
+const containerScreenView = {
+    textAlign: 'center'
 }
 
 const dataTable = {

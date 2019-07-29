@@ -65,7 +65,7 @@ function cart(props) {
             </div>
             <div style={marginTop} className="row justify-content-center align-items-end">
                 <div className="col-12" >
-                    <button type="button" className="btn btn-primary">Finalizar Compra</button>
+                    <button type="button" onClick={() => alert("Finalizar Venda")}  className="btn btn-primary">Finalizar Compra</button>
                 </div>
             </div>
         </div>
