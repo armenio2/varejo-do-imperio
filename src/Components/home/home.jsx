@@ -59,14 +59,14 @@ const columnsCart = [
         selector: 'price',
         right: true,
         sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
+        cell: data => currencyFormatter.format(parseInt(data.price) / 100, { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
-        name: 'Preço Final',
+        name: 'Valor de venda',
         selector: 'itemValueToSell',
         right: true,
         sortable: true,
-        cell: data => currencyFormatter.format(parseInt(data.itemValueToSell) / 100, { code: 'USD', thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
+        cell: data => currencyFormatter.format(parseInt(data.itemValueToSell), { thousand: '.', decimal: ',', "symbol": "R$", "decimalDigits": 2 })
     },
     {
         name: 'Quantidade',
@@ -189,21 +189,20 @@ const Home = () => {
                             highlightOnHover={true}
                         />
                     </div>
-                    <div style={stage === 2 ? styleShow : styleHide} className="modal" tabIndex="-1" role="dialog">
-                        <Modal
-                            name={item.name}
-                            value={value}
-                            nextValue={nextValue}
-                            amount={amount}
-                            nextAmount={nextAmount}
-                            isValid={isValid}
-                            styleHide={styleHide}
-                            styleShow={styleShow}
-                            minToSell={item.minToSell}
-                            onModalClose={onModalClose}
-                            onModalSubmit={onModalSubmit}
-                        />
-                    </div>
+                    <Modal
+                        stage={stage}
+                        name={item.name}
+                        value={value}
+                        nextValue={nextValue}
+                        amount={amount}
+                        nextAmount={nextAmount}
+                        isValid={isValid}
+                        styleHide={styleHide}
+                        styleShow={styleShow}
+                        minToSell={item.minToSell}
+                        onModalClose={onModalClose}
+                        onModalSubmit={onModalSubmit}
+                    />
                 </div>
                 <div style={cartItem ? styleShow : styleHide}>
                     <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
@@ -214,7 +213,6 @@ const Home = () => {
                                 style={dataTable}
                                 columns={columnsCart}
                                 data={cartItem ? cartItem : ''}
-                                onRowClicked={onRowClickedProduct}
                                 highlightOnHover={true}
                             />
                         </div>
