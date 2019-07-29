@@ -62,11 +62,6 @@ const columnsProduct = [
 ];
 
 const columnsCart = [
-    /* {
-         name: 'Id',
-         selector: 'id',
-         sortable: true,
-     },*/
     {
         name: 'Nome',
         selector: 'name',
@@ -96,7 +91,6 @@ const columnsCart = [
     },
     {
         name: 'Rentabilidade',
-        //selector: 'itemAmount',
         right: true,
         sortable: true,
         cell: data => <div style={{ fontWeight: 'bold' }}>{calculateRetability(data)}</div>,
@@ -120,6 +114,7 @@ const Home = () => {
     const [value, nextValue] = useState();
     const [amount, nextAmount] = useState();
     const [cartItem, addCartItem] = useState();
+    const [isValid, changeValid] = useState(true);
 
     const onRowClickedClient = (props) => {
         client(props.name)
@@ -131,33 +126,49 @@ const Home = () => {
         nextItem(props)
     }
 
-    const onModalClose = (props) => {
+    const onModalClose = () => {
         step(1)
     }
 
-    const onModalSubmit = () => {
-        //validar o multiplicador
-
-        step(1)
-        if (cartItem) {
-            let cart = [
-                ...cartItem,
-                {
-                    ...item,
-                    'itemValueToSell': value,
-                    'itemAmount': amount,
-                },
-            ]
-            addCartItem(cart)
+    const submitIsValid = (props, quantity) => {
+        if (parseInt(props.minToSell) >= 1) {
+            const rest = parseInt(quantity) % parseInt(props.minToSell);
+            if (rest === 0) {
+                changeValid(true)
+                return true
+            } else {
+                changeValid(false)
+                return false
+            }
         } else {
-            let cart = [
-                {
-                    ...item,
-                    'itemValueToSell': value,
-                    'itemAmount': amount,
-                },
-            ]
-            addCartItem(cart)
+            changeValid(true)
+            return true
+        }
+    }
+
+    const onModalSubmit = () => {
+        if (submitIsValid(item, amount)) {
+            step(1)
+            if (cartItem) {
+                let cart = [
+                    ...cartItem,
+                    {
+                        ...item,
+                        'itemValueToSell': value,
+                        'itemAmount': amount,
+                    },
+                ]
+                addCartItem(cart)
+            } else {
+                let cart = [
+                    {
+                        ...item,
+                        'itemValueToSell': value,
+                        'itemAmount': amount,
+                    },
+                ]
+                addCartItem(cart)
+            }
         }
     }
 
@@ -210,6 +221,9 @@ const Home = () => {
                                         </div>
                                         <div className="col-xl-6 col-md-12" >
                                             <NumberFormat value={amount} onChange={e => nextAmount(e.target.value)} thousandSeparator={true} />
+                                        </div>
+                                        <div style={isValid ? styleHide : styleShow}>
+                                            <p>Esse item só pode ser vendido de {item.minToSell} unidades</p>
                                         </div>
                                     </div>
                                 </div>
