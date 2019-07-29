@@ -53,7 +53,7 @@ function cart(props) {
         <div style={props.cartItem ? props.styleShow : props.styleHide}>
             <div style={marginTop} className="row justify-content-center align-items-end">
                 <div className="col-12" >
-                    <p style={{ fontSize: 25, fontFamily: 'bold' }}>Carrinho de Compras</p>
+                    <p style={titleCartFont}>Carrinho de Compras</p>
                     <DataTable
                         noHeader
                         style={props.dataTable}
@@ -74,6 +74,11 @@ function cart(props) {
 
 const titleFont = {
     fontWeight: 'bold'
+}
+
+const titleCartFont = {
+    fontSize: 25,
+    fontFamily: 'bold'
 }
 
 const marginTop = {

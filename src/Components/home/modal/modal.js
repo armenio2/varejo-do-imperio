@@ -29,7 +29,9 @@ function modal(props) {
                                 <NumberFormat value={props.amount} onChange={e => props.nextAmount(e.target.value)} />
                             </div>
                             <div style={props.isValid ? props.styleHide : props.styleShow}>
-                                <p>Esse item só pode ser vendido de {props.minToSell} unidades</p>
+                                <div className="col-12" style={fontError} >
+                                    <p>Esse item só pode ser vendido em multiplos de {props.minToSell}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,6 +43,11 @@ function modal(props) {
             </div>
         </div>
     );
+}
+
+const fontError = {
+    fontSize: 'bold',
+    color: 'red'
 }
 
 export default modal;
