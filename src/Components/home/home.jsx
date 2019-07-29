@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import Modal from './modal/modal';
+import Cart from './cart/cart';
 
 import dataMock from '../../mock/dataMock';
 
@@ -204,25 +205,13 @@ const Home = () => {
                         onModalSubmit={onModalSubmit}
                     />
                 </div>
-                <div style={cartItem ? styleShow : styleHide}>
-                    <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
-                        <div className="col-12" >
-                            <p style={{ fontSize: 25, fontFamily: 'bold' }}>Carrinho de Compras</p>
-                            <DataTable
-                                noHeader
-                                style={dataTable}
-                                columns={columnsCart}
-                                data={cartItem ? cartItem : ''}
-                                highlightOnHover={true}
-                            />
-                        </div>
-                    </div>
-                    <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
-                        <div className="col-12" >
-                            <button type="button" className="btn btn-primary">Finalizar Compra</button>
-                        </div>
-                    </div>
-                </div>
+                <Cart
+                    styleShow={styleShow}
+                    styleHide={styleHide}
+                    dataTable={dataTable}
+                    columnsCart={columnsCart}
+                    cartItem={cartItem}
+                />
             </div>
         </div >
     );
