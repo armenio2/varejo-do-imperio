@@ -122,6 +122,7 @@ const Home = () => {
     }
 
     const onRowClickedProduct = (props) => {
+        cleanInputs()
         step(2)
         nextItem(props)
     }
@@ -144,6 +145,11 @@ const Home = () => {
             changeValid(true)
             return true
         }
+    }
+
+    const cleanInputs = () => {
+        nextAmount('')
+        nextValue('')
     }
 
     const onModalSubmit = () => {
@@ -220,7 +226,7 @@ const Home = () => {
                                             <p>Quantos itens?</p>
                                         </div>
                                         <div className="col-xl-6 col-md-12" >
-                                            <NumberFormat value={amount} onChange={e => nextAmount(e.target.value)} thousandSeparator={true} />
+                                            <NumberFormat value={amount} onChange={e => nextAmount(e.target.value)} />
                                         </div>
                                         <div style={isValid ? styleHide : styleShow}>
                                             <p>Esse item só pode ser vendido de {item.minToSell} unidades</p>
