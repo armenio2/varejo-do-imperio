@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
+import Products from './products/products';
 import Modal from './modal/modal';
 import Cart from './cart/cart';
 
@@ -180,16 +181,14 @@ const Home = () => {
                             highlightOnHover={true}
                         />
                     </div>
-                    <div style={stage === 1 ? styleShow : styleHide}>
-                        <DataTable
-                            noHeader
-                            style={dataTable}
-                            columns={columnsProduct}
-                            data={dataMock.dataProduct}
-                            onRowClicked={onRowClickedProduct}
-                            highlightOnHover={true}
-                        />
-                    </div>
+                    <Products
+                        stage={stage}
+                        styleShow={styleShow}
+                        styleHide={styleHide}
+                        dataTable={dataTable}
+                        columnsProduct={columnsProduct}
+                        onRowClickedProduct={onRowClickedProduct}
+                    />
                     <Modal
                         stage={stage}
                         name={item.name}
