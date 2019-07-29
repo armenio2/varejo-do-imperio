@@ -76,9 +76,9 @@ const Home = () => {
     }
 
     return (
-        <div className="container" style={{ height: '100vh', width: '100vh' }}>
-            <div className="row justify-content-center align-items-center" style={{ height: '100vh' }}>
-                <div className="col-8" >
+        <div className="container fullSize">
+            <div className="row justify-content-center align-items-center" style={fullHeight}>
+                <div className="col-lg-8 col-md-12" >
                     <Clients
                         clientName={clientName}
                         stage={stage}
@@ -131,6 +131,10 @@ const styleHide = {
 
 const styleShow = {
     display: 'initial'
+}
+
+const fullHeight = {
+    height: '100vh'
 }
 
 export default Home;

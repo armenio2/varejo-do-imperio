@@ -13,14 +13,14 @@ const columnsClient = [
         name: 'Nome',
         selector: 'name',
         sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+        cell: data => <div style={titleFont}>{data.name}</div>,
     },
 ];
 
 function clients(props) {
     return (
         <section>
-            <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{props.clientName}</span>
+            <span style={titleClientFont}>{props.clientName}</span>
             <div style={props.stage === 0 ? props.styleShow : props.styleHide}>
                 <DataTable
                     noHeader
@@ -33,6 +33,15 @@ function clients(props) {
             </div>
         </section>
     );
+}
+
+const titleFont = {
+    fontWeight: 'bold'
+}
+
+const titleClientFont = {
+    fontWeight: 'bold',
+    fontSize: 35
 }
 
 export default clients;

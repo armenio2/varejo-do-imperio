@@ -14,7 +14,7 @@ const columnsProduct = [
         name: 'Nome',
         selector: 'name',
         sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+        cell: data => <div style={titleFont}>{data.name}</div>,
     },
     {
         name: 'Preço Unitário (R$)',
@@ -44,6 +44,10 @@ function products(props) {
             />
         </div>
     );
+}
+
+const titleFont = {
+    fontWeight: 'bold'
 }
 
 export default products;

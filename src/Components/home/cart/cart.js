@@ -8,7 +8,7 @@ const columnsCart = [
         name: 'Nome',
         selector: 'name',
         sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{data.name}</div>,
+        cell: data => <div style={titleFont}>{data.name}</div>,
     },
     {
         name: 'Preço Unitário (R$)',
@@ -35,7 +35,7 @@ const columnsCart = [
         name: 'Rentabilidade',
         right: true,
         sortable: true,
-        cell: data => <div style={{ fontWeight: 'bold' }}>{calculateRetability(data)}</div>,
+        cell: data => <div style={titleFont}>{calculateRetability(data)}</div>,
     },
 ];
 
@@ -51,7 +51,7 @@ const calculateRetability = (data) => {
 function cart(props) {
     return (
         <div style={props.cartItem ? props.styleShow : props.styleHide}>
-            <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
+            <div style={marginTop} className="row justify-content-center align-items-end">
                 <div className="col-12" >
                     <p style={{ fontSize: 25, fontFamily: 'bold' }}>Carrinho de Compras</p>
                     <DataTable
@@ -63,13 +63,21 @@ function cart(props) {
                     />
                 </div>
             </div>
-            <div style={{ marginTop: 35 }} className="row justify-content-center align-items-end">
+            <div style={marginTop} className="row justify-content-center align-items-end">
                 <div className="col-12" >
                     <button type="button" className="btn btn-primary">Finalizar Compra</button>
                 </div>
             </div>
         </div>
     );
+}
+
+const titleFont = {
+    fontWeight: 'bold'
+}
+
+const marginTop = {
+    marginTop: 35
 }
 
 export default cart;
