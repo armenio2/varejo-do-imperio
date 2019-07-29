@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import NumberFormat from 'react-number-format';
+import Modal from './modal/modal';
 
 import dataMock from '../../mock/dataMock';
 
@@ -190,41 +190,19 @@ const Home = () => {
                         />
                     </div>
                     <div style={stage === 2 ? styleShow : styleHide} className="modal" tabIndex="-1" role="dialog">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">{item.name}</h5>
-                                    <button onClick={onModalClose} type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="row justify-content-between align-items-center">
-                                        <div className="col-xl-6 col-md-12" >
-                                            <p>Qual o valor de compra do item?</p>
-                                        </div>
-                                        <div className="col-xl-6 col-md-12" >
-                                            <NumberFormat value={value} onChange={e => nextValue(e.target.value)} thousandSeparator={true} prefix={'R$: '} />
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-between align-items-center">
-                                        <div className="col-xl-6 col-md-12" >
-                                            <p>Quantos itens?</p>
-                                        </div>
-                                        <div className="col-xl-6 col-md-12" >
-                                            <NumberFormat value={amount} onChange={e => nextAmount(e.target.value)} />
-                                        </div>
-                                        <div style={isValid ? styleHide : styleShow}>
-                                            <p>Esse item só pode ser vendido de {item.minToSell} unidades</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button onClick={onModalClose} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button onClick={onModalSubmit} type="button" className="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
+                        <Modal
+                            name={item.name}
+                            value={value}
+                            nextValue={nextValue}
+                            amount={amount}
+                            nextAmount={nextAmount}
+                            isValid={isValid}
+                            styleHide={styleHide}
+                            styleShow={styleShow}
+                            minToSell={item.minToSell}
+                            onModalClose={onModalClose}
+                            onModalSubmit={onModalSubmit}
+                        />
                     </div>
                 </div>
                 <div style={cartItem ? styleShow : styleHide}>
