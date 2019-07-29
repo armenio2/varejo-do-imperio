@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import DataTable from 'react-data-table-component';
+import Clients from './clients/clients';
 import Products from './products/products';
 import Modal from './modal/modal';
 import Cart from './cart/cart';
-
-import dataMock from '../../mock/dataMock';
 
 var currencyFormatter = require('currency-formatter');
 
@@ -170,17 +168,15 @@ const Home = () => {
         <div className="container" style={{ height: '100vh', width: '100vh' }}>
             <div className="row justify-content-center align-items-center" style={{ height: '100vh' }}>
                 <div className="col-8" >
-                    <span style={{ fontSize: '35px', fontWeight: 'bold' }}>{clientName}</span>
-                    <div style={stage === 0 ? styleShow : styleHide}>
-                        <DataTable
-                            noHeader
-                            style={dataTable}
-                            columns={columnsClient}
-                            data={dataMock.dataClient}
-                            onRowClicked={onRowClickedClient}
-                            highlightOnHover={true}
-                        />
-                    </div>
+                    <Clients
+                        clientName={clientName}
+                        stage={stage}
+                        styleShow={styleShow}
+                        styleHide={styleHide}
+                        dataTable={dataTable}
+                        columnsClient={columnsClient}
+                        onRowClickedClient={onRowClickedClient}
+                    />
                     <Products
                         stage={stage}
                         styleShow={styleShow}
