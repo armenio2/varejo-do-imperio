@@ -4,7 +4,7 @@ import Products from './products/products';
 import Modal from './modal/modal';
 import Cart from './cart/cart';
 
-const Home = () => {
+const ScreenView = () => {
     const [clientName, client] = useState('Clientes');
     const [stage, step] = useState(0);
     const [item, nextItem] = useState(0);
@@ -137,4 +137,4 @@ const fullHeight = {
     height: '100vh'
 }
 
-export default Home;
+export default ScreenView;

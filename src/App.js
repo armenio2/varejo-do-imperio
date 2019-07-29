@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from './Components/home/home';
+import ScreenView from './Components/screenView/screenView';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <ScreenView />
     </div>
   );
 }
